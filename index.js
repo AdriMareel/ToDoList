@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const setupLoginRoute = require('./back/routes/login');
 const setupRegisterRoute = require('./back/routes/register');
 const setupListRoute = require('./back/routes/list');
+const path = require('path');
 
 
 const app = express();
@@ -13,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(express.static('front'));
+app.use(express.static(path.join(__dirname, 'front')));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
