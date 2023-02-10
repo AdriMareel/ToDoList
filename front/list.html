@@ -19,13 +19,18 @@
 		returns the data to the front
 	-->
 	<form onsubmit="addTask()">
-		<input type="text" name="task" placeholder="Task">
-		<input type="text" name="description" placeholder="Description">
-		<button type="submit">Add Task</button>
+		<div class="input-wrapper">
+			<input type="text" name="task" placeholder="Task">
+		</div>
+		<div class="input-wrapper">
+			<input type="text" name="description" placeholder="Description">
+		</div>
+		
+		<button class="submit-button" type="submit">Add Task</button>
 	</form>
 
 
-	<ul id="tasklist">
+	<ul id="taskList">
 
 	</ul>
 
