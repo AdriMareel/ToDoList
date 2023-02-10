@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-exports.all = (req, res, next) => {
+exports.cookieAuthJWT = (req, res, next) => {
     const token = req.cookies.token;
-
     if (!token) {
         return res.redirect('/');
     }
@@ -12,6 +11,7 @@ exports.all = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (err) {
+		res.clearCookie("token");
         return res.redirect('/');
     }
 };

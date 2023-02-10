@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const setupLoginRoute = require('./back/routes/login');
 const setupRegisterRoute = require('./back/routes/register');
 const setupListRoute = require('./back/routes/list');
+const setupAddTaskRoute = require('./back/routes/addTask');
 const path = require('path');
 
 
@@ -32,3 +33,4 @@ app.get('/list', (req, res) => {
 setupLoginRoute(app);
 setupRegisterRoute(app);
 setupListRoute(app);
+setupAddTaskRoute(app);

@@ -1,7 +1,8 @@
-const cookieAuthJWT = require('../middleware/cookieAuthJWT');
+const {cookieAuthJWT} = require('../middleware/cookieAuthJWT');
 
 module.exports = (app) => {
-    app.post('/list', async (req, res) => {
-        res.sendFile(__dirname + '/front/list.html');
-    });
+  	app.post("/list", cookieAuthJWT, (req, res, ) => {
+    	console.log(req.user);
+    	res.redirect("/list");
+  	});
 }

@@ -12,5 +12,23 @@
 </head>
 <body>
     <h1>ToDoList</h1>
+
+	<!-- 
+		call to the manageFile.js file front 
+		post data to the back with the /addTask route
+		returns the data to the front
+	-->
+	<form onsubmit="addTask()">
+		<input type="text" name="task" placeholder="Task">
+		<input type="text" name="description" placeholder="Description">
+		<button type="submit">Add Task</button>
+	</form>
+
+
+	<ul id="tasklist">
+
+	</ul>
+
+	<script src="manageTask.js"></script>
 </body>
 </html>
