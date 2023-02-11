@@ -60,3 +60,28 @@ input{
 	align-items: center;
 	padding: 10px;
 }
+
+.wrapper{
+	width : 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#error{
+	position: fixed;
+	display: none;
+	opacity: 0;
+	justify-content: center;
+	margin: auto;
+	align-items: center;
+	border-radius: 100px;
+	top: 10px;
+	margin: 0 auto;
+	padding: 0 20px;
+	background-color: #FF9494;
+	height: 2.5rem;
+	color: white;
+	font-weight: 700;
+	transition:	opacity 1s ease-in-out;
+}

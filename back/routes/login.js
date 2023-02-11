@@ -1,17 +1,28 @@
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const userSchema = require('../models/User');
 
-const getUser = async (username, password) => {
+const getUser = async (username) => {
     //check if user exists in db
-    return {userId : 123, password : "admin", username : "admin"};
+    const User = mongoose.model('users', userSchema);
+
+    return new Promise ((resolve, reject) => {
+        User.findOne({ username: username }, (err, user) => {
+            if (err) return reject(err);
+            resolve(user);
+        });
+    });
 }
 
 module.exports = (app) => {
     app.post('/login', async (req, res) => {
         const { username, password } = req.body;
 
-        console.log(req.body);
+        //form data
+        console.table(req.body);
 
-        const user = await getUser(username, password);
+        const user = await getUser(username);
+        console.log(user);
 
         if (!user) {
             return res.status(401).json({ error: 'User not found' });
@@ -23,10 +34,10 @@ module.exports = (app) => {
 
         delete user.password;
 
-        const token = jwt.sign(user, "my-secret", {expiresIn : '1h'});
+        const token = jwt.sign({username,password}, "my-secret", {expiresIn : '1h'});
 
         res.cookie('token', token, { httpOnly: true });
 
-        return res.redirect('/list');
+        return res.status(200).json({ message: 'Logged in'});
     });
 }

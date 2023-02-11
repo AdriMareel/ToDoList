@@ -12,20 +12,57 @@
 </head>
 <body>
 
-    <form action="/login" method="post">
+    <div class="wrapper">
+        <div id="error">
+
+        </div>
+    </div>
+
+    <form class="form" action="/login" method="post">
 		<div class="presentation">
 			<h3>Manage your daily tasks with us !</h1>
 		</div>
 
 		<div class="input-wrapper">
-			<input name="username" placeholder="username" />
+			<input name="username" placeholder="username" required/>
 		</div>
         <div class="input-wrapper">
-			<input name="password" type="password" placeholder="password" />
+			<input name="password" type="password" placeholder="password" required/>
 		</div>
         
         <button class="submit-button" type="submit">Login</button>
     </form>
+
     
+    
+    
+    <script>
+        const form = document.querySelector('.form');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: form.username.value,
+                    password: form.password.value
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('error').innerHTML = data.error;
+                    document.getElementById('error').style.display = "flex";
+                    document.getElementById('error').style.opacity = "1";
+                } else {
+                    window.location.href = '/list';
+                }
+            })
+        });
+    </script>
 </body>
 </html>
