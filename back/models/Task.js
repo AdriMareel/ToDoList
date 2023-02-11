@@ -1,10 +1,9 @@
-//create a class for Task
+const mongoose = require('mongoose');
 
-module.exports = class Task{
-		constructor(object){
-			this.title = object.task;
-			this.description = object.description;
-			this.status = "not started";
-			this.id = object.id;
-		}
-	}
+module.exports = taskSchema = new mongoose.Schema({
+	userId : String,
+	id : String,
+    title : String,
+    description: String,
+    status : String,
+});
