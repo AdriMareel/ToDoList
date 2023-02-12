@@ -24,6 +24,7 @@ form{
 	flex-direction: column;
 	-webkit-box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.2); 
 	box-shadow: 0px 5px 20px 5px rgba(0,0,0,0.2);
+	justify-content: space-around;
 }
 
 input{
@@ -34,6 +35,14 @@ input{
 
 .presentation{
 	margin: 0 0 10px 0;
+}
+
+.presentation p{
+	margin-top: 10px;
+	font-size: 20px;
+	text-align: center;
+	font-weight: 400;
+	color: #413ef7;
 }
 
 .input-wrapper{
@@ -84,4 +93,19 @@ input{
 	color: white;
 	font-weight: 700;
 	transition:	opacity 1s ease-in-out;
+}
+
+#register,#login{
+	margin-left: 5px;
+	font-size: 12px;
+	color: #555;
+	cursor: pointer;
+}
+
+#login{
+	display: none;
+}
+
+#register:hover,#login:hover{
+	text-decoration: underline;
 }
