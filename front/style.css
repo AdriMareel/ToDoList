@@ -109,3 +109,8 @@ input{
 #register:hover,#login:hover{
 	text-decoration: underline;
 }
+
+.title{
+	width: 100%;
+	text-align: center;
+}

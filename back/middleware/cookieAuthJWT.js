@@ -12,6 +12,7 @@ exports.cookieAuthJWT = (req, res, next) => {
         next();
     } catch (err) {
 		res.clearCookie("token");
+		res.clearCookie("username");
         return res.redirect('/');
     }
 };

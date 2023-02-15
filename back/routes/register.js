@@ -50,6 +50,7 @@ module.exports = (app) => {
 
         const token = jwt.sign({username}, "my-secret", {expiresIn : '1h'});
         res.cookie('token', token, { httpOnly: true });
+		res.cookie('username', username, { httpOnly: true });
 
         return res.status(200).json({ message: 'User created' });
     });

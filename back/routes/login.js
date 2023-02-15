@@ -37,6 +37,7 @@ module.exports = (app) => {
         const token = jwt.sign({username,password}, "my-secret", {expiresIn : '1h'});
 
         res.cookie('token', token, { httpOnly: true });
+		res.cookie('username', username);
 
         return res.status(200).json({ message: 'Logged in'});
     });
