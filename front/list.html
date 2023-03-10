@@ -11,62 +11,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="title">
-		<h1>My ToDoList</h1>
-	</div>
-    
-	<!-- 
-		call to the manageFile.js file front 
-		post data to the back with the /addTask route
-		returns the data to the front
-	-->
-	
-	<!--
-	<form onsubmit="addTask()">
+
+	<div class="circle1"></div>
+	<div class="circle2"></div>
+	<div class="circle3"></div>
+
+	<form id="taskAdder" onsubmit="addTask()">
+		<div id="addTaskCancel"><img height="20px" src="img/croix.png"/></div>
+		<div class="">Add a new task</div>
 		<div class="input-wrapper">
-			<input type="text" name="task" placeholder="Task">
+			<input type="text" name="title" placeholder="Task">
 		</div>
 		<div class="input-wrapper">
 			<input type="text" name="description" placeholder="Description">
 		</div>
 		
+		<div class="input-date-wrapper">
+			<input class="input-date" type="date" name="date">
+		</div>
 		<button class="submit-button" type="submit">Add Task</button>
 	</form>
-	-->
-	<div class="scrolling-list">
-		<div class="date-picker">
-			<div class="left-arrow">
-				<img src="img/left-arrow.png" alt="">
-			</div>
 
-			<div class="dates-list">
-				<div class="date">
-					<p class="day-shorten">Mon</p>
-					<p class="number">1</p>
-					<p class="month-shorten">Jan</p>
-				</div>
-	
-				<div class="date selected">
-					<p class="day-shorten">Tue</p>
-					<p class="number">2</p>
-					<p class="month-shorten">Jan</p>
-				</div>
-	
-				<div class="date">
-					<p class="day-shorten">Wed</p>
-					<p class="number">3</p>
-					<p class="month-shorten">Jan</p>
-				</div>
-			</div>
-
-			<div class="right-arrow">
-				<img src="img/right-arrow.png" alt="">
+	<div id="app">
+		<div class="title">
+			<h1>My ToDoList</h1>
+			<div class="add-task" id="taskAddButton">
+				<img src="img/plus.png" alt="">
+				<span>New Task</span>
 			</div>
 		</div>
-
-		<ul id="taskList">
-			
-		</ul>
+		
+		<div class="scrolling-list">
+			<div class="date-picker">
+				<div class="left-arrow">
+					<img src="img/left-arrow.png" alt="">
+				</div>
+	
+				<div class="dates-list">
+					<div class="date">
+						<p class="day-shorten">Mon</p>
+						<p class="number">1</p>
+						<p class="month-shorten">Jan</p>
+					</div>
+		
+					<div class="date selected">
+						<p class="day-shorten">Tue</p>
+						<p class="number">2</p>
+						<p class="month-shorten">Jan</p>
+					</div>
+		
+					<div class="date">
+						<p class="day-shorten">Wed</p>
+						<p class="number">3</p>
+						<p class="month-shorten">Jan</p>
+					</div>
+				</div>
+	
+				<div class="right-arrow">
+					<img src="img/right-arrow.png" alt="">
+				</div>
+			</div>
+	
+			<ul id="taskList">
+				
+			</ul>
+		</div>
 	</div>
 
 	<script src="datePicker.js"></script>

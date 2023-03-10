@@ -6,4 +6,5 @@ module.exports = taskSchema = new mongoose.Schema({
     title : String,
     description: String,
     status : String,
+	date : Date
 });
