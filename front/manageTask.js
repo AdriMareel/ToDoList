@@ -11,9 +11,7 @@ function addTask() {
 	let username = document.cookie.split('=')[1];
 	let title = document.querySelector('input[name="title"]').value;
 	let description = document.querySelector('input[name="description"]').value;
-	let date = new Date(document.querySelector('input[name="date"]').value).getTime();
-
-	console.log({username, title, description, date});
+	let date = new Date(document.querySelector('input[name="date"]').value).toLocaleDateString();
 
 	if (title == '') {
 		//make the input border red
@@ -38,16 +36,19 @@ function addTask() {
 		.then(res => res.json())
 		.then(data => {
 			console.log(data);
+			displayTaskAdder('hide');
 			updateViewTaskList(data.task);
 		})
 }
 document.getElementById('taskAdder').addEventListener('submit', addTask);
 
 //update the task list for a specific day if a new task is added or deleted
-function updateViewTaskList(){
+export function updateViewTaskList(){
 	let username = document.cookie.split('=')[1];
 	let taskList;
 	let date = getSelectedDate();
+
+	console.log(date);
 
 	fetch('/getTasks', {
 		method: 'POST',
@@ -67,7 +68,7 @@ function updateViewTaskList(){
 				displayNoTaskForToday();
 				return;
 			}
-			
+
 			document.getElementById('taskList').innerHTML = ''; 
 			console.log(data);
 			taskList = data.taskList;
@@ -82,6 +83,13 @@ function updateViewTaskList(){
 			document.querySelector('input[name="date"]').value = '';
 		})
 }
+
+document.getElementsByClassName('left-arrow')[0].addEventListener('click', function(){
+	updateViewTaskList();
+});
+document.getElementsByClassName('right-arrow')[0].addEventListener('click', function(){
+	updateViewTaskList();
+});
 
 function displayNoTaskForToday(){
 	document.getElementById('taskList').innerHTML = '<div class="no-task"><img src="img/illustration-sad.png" /><span>No task for this day</span></div>';

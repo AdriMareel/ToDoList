@@ -39,5 +39,5 @@ document.getElementsByClassName('right-arrow')[0].addEventListener('click', func
 
 
 export function getSelectedDate(){
-	return date.getTime();
+	return date.toLocaleDateString("fr-FR");
 }

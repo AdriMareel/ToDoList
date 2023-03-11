@@ -72,12 +72,17 @@ const getTasks = async ({ username, date}) => {
 				//check if the date is the same as the one requested
 				taskSend = [];
 				for(let i = 0; i < taskList.length; i++){
-					if(taskList[i].date.getTime() == date){
+					console.log("db " + taskList[i].date.toLocaleDateString("fr-FR"));
+					console.log("request " + date);
+
+					console.log(taskList[i].date.toLocaleDateString("fr-FR") == date);
+					if(taskList[i].date.toLocaleDateString("fr-FR") == date){
 						taskSend.push(taskList[i]);
 					}
 				}
+				if(taskSend.length == 0) reject({ error: 'Tasks not found for the date' });
 				console.log(taskSend);
-				resolve({taskList : taskList, message : 'Tasks found successfully for the date'});
+				resolve({taskList : taskSend, message : 'Tasks found successfully for the date'});
 			}
 		});
 	});
