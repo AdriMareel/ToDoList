@@ -52,7 +52,7 @@ module.exports = (app) => {
 		console.log(user);
 		if('error' in user) return res.status(401).json({ error: user.error });
 
-        const token = jwt.sign({username}, "my-secret", {expiresIn : '1h'});
+        const token = jwt.sign({username}, process.env.JWT_SECRET , {expiresIn : '1h'});
         res.cookie('token', token, { httpOnly: true });
 		res.cookie('username', username, { httpOnly: true });
 

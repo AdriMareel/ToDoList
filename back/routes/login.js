@@ -31,7 +31,7 @@ module.exports = (app) => {
 
         delete user.password;
 
-        const token = jwt.sign({username,password}, "my-secret", {expiresIn : '1h'});
+        const token = jwt.sign({username,password}, process.env.JWT_SECRET, {expiresIn : '1h'});
 
         res.cookie('token', token, { httpOnly: true });
 		res.cookie('username', username);
