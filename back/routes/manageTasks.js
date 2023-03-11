@@ -22,7 +22,7 @@ const getUserId = async (username) => {
 }
 
 
-const createTask = async ({ username, title, description }) => {
+const createTask = async ({ username, title, description, date }) => {
 
 	let status = 'not started';
 	let userId = await getUserId(username);
@@ -33,10 +33,10 @@ const createTask = async ({ username, title, description }) => {
 		userId,
 		title,
 		description,
-		status
+		status,
+		date
 	});
 
-	
 	
 	//push to database
 	newTask.save((err, task) => {
@@ -50,36 +50,51 @@ const createTask = async ({ username, title, description }) => {
 	return {task : newTask, message: 'Task added successfully'};
 };
 
-const getTasks = async ({ username }) => {
+const getTasks = async ({ username, date}) => {
 
 	const User = mongoose.model('users', userSchema);
 	let userId = await getUserId(username);
 
 	return new Promise((resolve, reject) => {
 		const Task = mongoose.model('tasks', taskSchema);
-		Task.find({ userId : userId }, (err, taskList) => {
+
+		//find all the tasks for the user
+		Task.find({ userId : userId}, (err, taskList) => {
 			if (err) {
 				console.log(err);
 				reject({ error : 'Error finding tasks'});
 			}
-			if (!taskList) {
+			else if (!taskList || taskList.length == 0) {
 				console.log('Tasks not found');
 				reject({ error: 'Tasks not found' });
 			}
-			resolve({taskList : taskList, message : 'Tasks found successfully'});
+			else{
+				//check if the date is the same as the one requested
+				taskSend = [];
+				for(let i = 0; i < taskList.length; i++){
+					if(taskList[i].date.getTime() == date){
+						taskSend.push(taskList[i]);
+					}
+				}
+				console.log(taskSend);
+				resolve({taskList : taskList, message : 'Tasks found successfully for the date'});
+			}
 		});
 	});
 }
 
 module.exports = (app) => {
 	app.post('/addTask', async (req, res) => {
-		const { username, title, description } = req.body;
-		
-		res.send(await createTask({username, title, description}));
+		const { username, title, description, date } = req.body;
+		res.send(await createTask({username, title, description, date}));
 	});
 
 	app.post('/getTasks', async (req, res) => {
-		const { username } = req.body;
-		res.send(await getTasks({username}));
+		const { username, date} = req.body;
+		res
+			.send(await getTasks({username , date})
+			.catch(err => {
+				res.send(err);
+			}));
 	});
 }

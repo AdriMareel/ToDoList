@@ -1,3 +1,5 @@
+import { getSelectedDate } from "./datePicker.js";
+
 //make a post request to the server
 //to add a new task
 function addTask() {
@@ -9,12 +11,13 @@ function addTask() {
 	let username = document.cookie.split('=')[1];
 	let title = document.querySelector('input[name="title"]').value;
 	let description = document.querySelector('input[name="description"]').value;
-	let date = new Date(document.querySelector('input[name="date"]').value);
+	let date = new Date(document.querySelector('input[name="date"]').value).getTime();
 
-	//check if the title or description is empty
-	if (title == '' || description == '') {
+	console.log({username, title, description, date});
+
+	if (title == '') {
 		//make the input border red
-		if(title == '') document.querySelector('input[name="title"]').parentNode.style.border.bottom = '1px solid red';
+		document.querySelector('input[name="title"]').parentNode.style.border.bottom = '1px solid red';
 		console.log("title is empty");
 		return;
 	}
@@ -28,7 +31,8 @@ function addTask() {
 		body: JSON.stringify({
 			username : username,
 			title: title,
-			description: description
+			description: description,
+			date: date
 		})
 	})
 		.then(res => res.json())
@@ -37,12 +41,13 @@ function addTask() {
 			updateViewTaskList(data.task);
 		})
 }
+document.getElementById('taskAdder').addEventListener('submit', addTask);
 
 //update the task list for a specific day if a new task is added or deleted
-function updateViewTaskList(task){
-
+function updateViewTaskList(){
 	let username = document.cookie.split('=')[1];
 	let taskList;
+	let date = getSelectedDate();
 
 	fetch('/getTasks', {
 		method: 'POST',
@@ -51,10 +56,19 @@ function updateViewTaskList(task){
 		},
 		body: JSON.stringify({
 			username : username,
+			date: date
 		})
 	})	
 		.then(res => res.json())
 		.then(data => {
+
+			if(data.error || !data.taskList){
+				console.log(data.error);
+				displayNoTaskForToday();
+				return;
+			}
+			
+			document.getElementById('taskList').innerHTML = ''; 
 			console.log(data);
 			taskList = data.taskList;
 
@@ -69,9 +83,12 @@ function updateViewTaskList(task){
 		})
 }
 
+function displayNoTaskForToday(){
+	document.getElementById('taskList').innerHTML = '<div class="no-task"><img src="img/illustration-sad.png" /><span>No task for this day</span></div>';
+}
+
 //display the task adder form or remove it 
 function displayTaskAdder(param){
-	console.log("displayTaskAdder runned");
 	if (param == 'show'){
 		document.getElementById('taskAdder').style.display = 'flex';
 		document.getElementById('app').style.filter = "blur(20px)";

@@ -1,7 +1,7 @@
 const weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
 let date = new Date();
-console.log(date.getMonth());
+date.setHours(0,0,0,0);
 
 //fill the datepicker with the current day
 function updateDatePicker(date){
@@ -36,3 +36,8 @@ document.getElementsByClassName('right-arrow')[0].addEventListener('click', func
 	date.setDate(date.getDate() + 1);
 	updateDatePicker(date);
 });
+
+
+export function getSelectedDate(){
+	return date.getTime();
+}

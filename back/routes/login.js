@@ -18,9 +18,6 @@ module.exports = (app) => {
     app.post('/login', async (req, res) => {
         const { username, password } = req.body;
 
-        //form data
-        console.table(req.body);
-
         const user = await getUser(username);
         console.log(user);
 
